@@ -1,6 +1,7 @@
 const productos = [
   { nombre: "agua 1L", precio: 1100 },
   { nombre: "agua chica", precio: 800 },
+  {nombre: "agua fea", precio: 1000},
   { nombre: "amstel 710", precio: 3500 },
   { nombre: "andes 710", precio: 3800 },
   { nombre: "andes ipa", precio: 2400 },
