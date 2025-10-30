@@ -115,7 +115,7 @@ const productos = [
   { nombre: "volk session ipa", precio: 5500 }
 ];
 
-
+/* 
 // 1️⃣ Ordenar alfabéticamente
 productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
@@ -140,3 +140,52 @@ Object.keys(grupos).sort().forEach(letra => {
   });
   lista.appendChild(section);
 });
+ */
+
+const lista = document.getElementById('lista');
+
+// Función principal para cargar y renderizar
+async function cargarYRenderizarProductos() {
+    // 1️⃣ Generar un cache buster automático basado en el tiempo actual
+    const cacheBuster = Date.now();
+    const url = `./scripts/data.json?v=${cacheBuster}`;
+
+    try {
+        // 2️⃣ Cargar los datos. El 'cacheBuster' garantiza que siempre se descargue la última versión
+        const response = await fetch(url);
+        const productos = await response.json();
+
+        // 3️⃣ Ordenar alfabéticamente
+        productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        // 4️⃣ Agrupar por letra inicial
+        const grupos = {};
+        productos.forEach(p => {
+            const letra = p.nombre[0].toUpperCase();
+            if (!grupos[letra]) grupos[letra] = [];
+            grupos[letra].push(p);
+        });
+
+        // 5️⃣ Renderizar los grupos
+        Object.keys(grupos).sort().forEach(letra => {
+            const section = document.createElement('section');
+            section.innerHTML = `<h2>${letra}</h2>`;
+            grupos[letra].forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'producto';
+                // Formatear el precio para que se vea mejor, por ejemplo, con puntos o comas
+                const precioFormateado = p.precio.toLocaleString('es-AR'); 
+                div.innerHTML = `<span>${p.nombre}</span><span>$${precioFormateado}</span>`;
+                section.appendChild(div);
+            });
+            lista.appendChild(section);
+        });
+
+    } catch (error) {
+        console.error("Error al cargar o renderizar los productos:", error);
+        lista.innerHTML = '<h2>Lo sentimos, no pudimos cargar la lista de precios.</h2>';
+    }
+}
+
+// Iniciar la carga
+cargarYRenderizarProductos();
