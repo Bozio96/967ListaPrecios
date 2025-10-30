@@ -25,7 +25,7 @@ const productos = [
   { nombre: "coca lata", precio: 1400 },
   { nombre: "coca retor 2", precio: 3800 },
   { nombre: "coca vidrio", precio: 2800 },
-  { nombre: "coca vidrio chiquita", precio: 1100 },
+  { nombre: "coca vidrio chiquita", precio: 1300 },
   { nombre: "coca zero", precio: 3500 },
   { nombre: "combo amargo", precio: 7900 },
   { nombre: "combo fernet 1L", precio: 30000 },
